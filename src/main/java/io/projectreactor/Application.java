@@ -48,28 +48,26 @@ public class Application {
 		PathExtensionContentTypeResolver contentTypeResolver = new PathExtensionContentTypeResolver(mediaTypes);
 		contentTypeResolver.setIgnoreUnknownExtensions(false);
 
-		// TODO Use andRoute() when https://jira.spring.io/browse/SPR-14904 will be fixed
 		return route(GET("/docs/api/**"), request ->
 				status(FOUND).header(LOCATION, request.path().replace("/docs/", "/old/")).build()
-			).and(route(GET("/docs/reference/**"), request ->
+			).andRoute(GET("/docs/reference/**"), request ->
 				status(FOUND).header(LOCATION, request.path().replace("/docs/", "/old/")).build()
-			).and(route(GET("/docs/raw/**"), request ->
+			).andRoute(GET("/docs/raw/**"), request ->
 				status(FOUND).header(LOCATION, request.path().replace("/docs/", "/old/")).build()
-			).and(route(GET("/core/docs/reference/**"), request ->
+			).andRoute(GET("/core/docs/reference/**"), request ->
 				status(FOUND).header(LOCATION, "https://github.com/reactor/reactor-core/blob/master/README.md").build()
-			).and(route(GET("/"), request ->
+			).andRoute(GET("/"), request ->
 				ok().body(BodyInserters.fromResource(new ClassPathResource("static/index.html")))
-			).and(route(GET("/docs"), request ->
+			).andRoute(GET("/docs"), request ->
 				ok().body(BodyInserters.fromResource(new ClassPathResource("static/docs/index.html")))
-			).and(route(GET("/{file}"), request ->
+			).andRoute(GET("/{file}"), request ->
 				ok().body(BodyInserters.fromResource(new ClassPathResource("static/" + request.pathVariable("file"))))
-			).and(route(GET("/assets/{dir}/{file}"), request -> {
+			).andRoute(GET("/assets/{dir}/{file}"), request -> {
 					// TODO Simplify when https://jira.spring.io/browse/SPR-14905 will be fixed
 					Resource resource = new ClassPathResource("static/assets/" + request.pathVariable("dir") + "/" + request.pathVariable("file"));
 					return ok().contentType(contentTypeResolver.resolveMediaTypeForResource(resource)).body(BodyInserters.fromResource(resource));
 				}
-			)
-		)))))));
+			);
 	}
 
 }

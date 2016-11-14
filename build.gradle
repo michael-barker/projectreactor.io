@@ -34,11 +34,12 @@ compass {
 
 repositories {
   maven { url 'http://repo.spring.io/libs-milestone' }
+  maven { url "https://repo.spring.io/snapshot" }
   mavenCentral()
 }
 
 dependencies {
-  compile('org.springframework:spring-web-reactive:5.0.0.M3')
+  compile('org.springframework:spring-web-reactive:5.0.0.BUILD-SNAPSHOT')
   compile('io.projectreactor.ipc:reactor-netty:0.5.2.RELEASE')
 }
 
