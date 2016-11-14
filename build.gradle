@@ -1,55 +1,44 @@
 ext {
-  ratpackVersion = '0.9.16'
   sourceCompatibility = 1.8
   targetCompatibility = 1.8
 }
 
 buildscript {
   repositories {
-    maven { url 'http://repo.spring.io/libs-snapshot' }
     jcenter()
+    maven { url 'http://dl.bintray.com/robfletcher/gradle-plugins' }
     mavenCentral()
   }
   dependencies {
-    classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.2.6.RELEASE'
+    classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.4.1.RELEASE'
+    classpath 'com.github.robfletcher:compass-gradle-plugin:2.0.6'
   }
 }
 
 apply plugin: 'java'
-apply plugin: 'spring-boot'
+apply plugin: 'application'
+apply plugin: 'com.github.robfletcher.compass'
 
 group = 'io.projectreactor'
-version = '0.4.0.BUILD-SNAPSHOT'
+version = '1.0.0.BUILD-SNAPSHOT'
+mainClassName = 'io.projectreactor.Application'
 
 jar {
   baseName = 'projectreactor-home'
 }
 
+compass {
+  sassDir = file("$projectDir/src/main/sass")
+  cssDir = file("$projectDir/src/main/resources/static/assets/css")
+}
+
 repositories {
-  mavenLocal()
-  maven { url 'http://repo.spring.io/libs-snapshot' }
-  maven { url 'http://oss.jfrog.org/artifactory/repo' }
+  maven { url 'http://repo.spring.io/libs-milestone' }
   mavenCentral()
 }
 
 dependencies {
-  // Spring Boot
-  compile('org.springframework.boot:spring-boot-starter-web') {
-    exclude module: 'spring-boot-starter-tomcat'
-  }
-
-  compile "io.projectreactor:reactor-core:2.0.6.RELEASE"
-
-  compile "io.ratpack:ratpack-core:$ratpackVersion",
-      "io.ratpack:ratpack-groovy:$ratpackVersion",
-      "io.ratpack:ratpack-jackson:$ratpackVersion",
-      "io.ratpack:ratpack-spring-boot:$ratpackVersion"
-
-  runtime 'javax.el:javax.el-api:3.0.0'
-
-  testCompile 'org.springframework.boot:spring-boot-starter-test'
+  compile('org.springframework:spring-web-reactive:5.0.0.M3')
+  compile('io.projectreactor.ipc:reactor-netty:0.5.2.RELEASE')
 }
 
-task wrapper(type: Wrapper) {
-  gradleVersion = '2.3'
-}
