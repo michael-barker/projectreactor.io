@@ -44,6 +44,7 @@ repositories {
 
 dependencies {
   compile('org.springframework:spring-web-reactive:5.0.0.BUILD-SNAPSHOT')
+  compile('org.springframework:spring-context-support:5.0.0.BUILD-SNAPSHOT')
   compile('io.projectreactor.ipc:reactor-netty:0.5.2.RELEASE')
   compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
