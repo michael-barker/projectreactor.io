@@ -43,7 +43,7 @@ repositories {
 
 dependencies {
   compile("org.springframework:spring-web-reactive:5.0.0.BUILD-SNAPSHOT")
-  // TODO Remove the spring-context-support dependency when the extended mime types will be moved in spring-core or spring-web
+  // TODO Remove the spring-context-support dependency when https://jira.spring.io/browse/SPR-14908 will be fixed
   compile("org.springframework:spring-context-support:5.0.0.BUILD-SNAPSHOT")
   compile("io.projectreactor.ipc:reactor-netty:0.5.2.RELEASE")
   compile(kotlinModule("stdlib", extra["kotlinVersion"] as String))
