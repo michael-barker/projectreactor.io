@@ -1,4 +1,4 @@
-package projectreactor
+package io.projectreactor
 
 import org.springframework.http.HttpHeaders.*
 import org.springframework.http.HttpStatus.*
